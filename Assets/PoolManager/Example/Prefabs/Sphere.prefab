@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2818493583075174218}
   - component: {fileID: -4701725355228323706}
   m_Layer: 0
-  m_Name: Prefab
+  m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,5 +121,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d13c5a393cd80f479ef1c7d72bfe28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
-  TimeToDisable: 3
+  data: {fileID: 11400000, guid: e32ba640e96bfb046a7cab14ee389838, type: 2}
