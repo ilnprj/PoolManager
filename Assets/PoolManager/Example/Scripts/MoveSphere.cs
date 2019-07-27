@@ -29,6 +29,6 @@ public class MoveSphere : MonoBehaviour
     IEnumerator Delay()
     {
         yield return new WaitForSecondsRealtime(TimeToDisable);
-        PoolManager.BackToPool(gameObject);
+        PoolManager.BackToPool(gameObject,"Sphere");
     }
 }

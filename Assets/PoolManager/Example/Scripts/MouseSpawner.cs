@@ -3,17 +3,21 @@ using ManagerPooling;
 
 public class MouseSpawner : MonoBehaviour
 {
-    public GameObject ExamplePrefab;
+    [SerializeField]
+    private GameObject examplePrefab = default;
+
+    [SerializeField]
+    private int numPreparedObjects = 10;
     void Start()
     {
-        PoolManager.SetObjectInPool(ExamplePrefab,10);
+        PoolManager.PoolInstaller(examplePrefab,numPreparedObjects,"Sphere");
     }
 
     private void FixedUpdate()
     {
         if (Input.GetMouseButton(0))
         {
-            PoolManager.SpawnObject();
+            PoolManager.SpawnObject(examplePrefab,"Sphere");
         }
     }
 }

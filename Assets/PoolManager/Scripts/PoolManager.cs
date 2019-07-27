@@ -5,14 +5,15 @@ namespace ManagerPooling
 {
     public class PoolManager : MonoBehaviour
     {
-        public static Pool<GameObject> pool;
+        public static Dictionary<string, Pool<GameObject>> AllPools = new Dictionary<string, Pool<GameObject>>();
+    
         public enum SceneType
         {
             OnceLoad, DontDestroy
         }
         public SceneType TypeLoad;
 
-        private PoolManager instance;
+        private PoolManager instance = null;
 
         private void Awake()
         {
@@ -34,31 +35,42 @@ namespace ManagerPooling
             }
         }
 
-        public static void SetObjectInPool(GameObject prefab, int size)
+        public static void PoolInstaller(GameObject prefab, int size, string idGroup)
         {
             var rootTransform = new GameObject();
             rootTransform.name = prefab.name + " Pool";
-            pool = new Pool<GameObject>(() => { return InstantiateObject(prefab, rootTransform); }, size);
+            var pool = new Pool<GameObject>(() => { return InstantiateObject(prefab, rootTransform); }, size);
+            AllPools.Add(idGroup, pool);
+        }
+
+        public static void SpawnObject(GameObject prefab,string idGroup)
+        {
+            if (AllPools.ContainsKey(idGroup))
+            {
+                var objectFromPool = AllPools[idGroup].GetFromPool();
+                objectFromPool.SetActive(true);
+            }
+            else
+            {
+                PoolInstaller(prefab, 1, idGroup);
+            }
+        }
+
+        public static void BackToPool(GameObject item,string idGroup)
+        {
+            if (AllPools.ContainsKey(idGroup))
+            {
+                item.SetActive(false);
+                AllPools[idGroup].BackToPool(item);
+            }
         }
 
         private static GameObject InstantiateObject(GameObject prefab, GameObject rootTransform)
         {
-            var go = Instantiate(prefab) as GameObject;
-            go.transform.SetParent(rootTransform.transform);
-            go.SetActive(false);
-            return go;
-        }
-
-        public static void SpawnObject()
-        {
-            var objectFromPool = pool.GetFromPool();
-            objectFromPool.SetActive(true);
-        }
-
-        public static void BackToPool(GameObject item)
-        {
-            item.SetActive(false);
-            pool.BackToPool(item);
+            var newObject = Instantiate(prefab) as GameObject;
+            newObject.transform.SetParent(rootTransform.transform);
+            newObject.SetActive(false);
+            return newObject;
         }
     }
 }

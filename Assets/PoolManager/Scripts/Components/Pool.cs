@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 using System;
 
 namespace ManagerPooling
@@ -8,11 +7,11 @@ namespace ManagerPooling
     {
         public Dictionary<T, ItemPool<T>> ObjectsInPool = new Dictionary<T, ItemPool<T>>();
 
-        private Func<T> fucntionInstanced;
+        private Func<T> func;
 
         public Pool(Func<T> inputObject, int size)
         {
-            fucntionInstanced = inputObject;
+            func = inputObject;
             ObjectsInPool = new Dictionary<T, ItemPool<T>>();
             for (int i = 0; i < size; i++)
             {
@@ -24,10 +23,10 @@ namespace ManagerPooling
         {
             foreach (var item in ObjectsInPool)
             {
-                if (item.Value.free)
+                if (item.Value.Free)
                 {
-                    item.Value.free = false;
-                    return item.Value.itemObject;
+                    item.Value.Free = false;
+                    return item.Value.ItemObject;
                 }
             }
             return CreateNewObject();
@@ -37,16 +36,16 @@ namespace ManagerPooling
         {
             if (ObjectsInPool.ContainsKey(item))
             {
-                ObjectsInPool[item].free = true;
+                ObjectsInPool[item].Free = true;
             }
         }
 
         private T CreateNewObject()
         {
             var newObject = new ItemPool<T>();
-            newObject.itemObject = fucntionInstanced();
-            ObjectsInPool.Add(newObject.itemObject, newObject);
-            return newObject.itemObject;
+            newObject.ItemObject = func();
+            ObjectsInPool.Add(newObject.ItemObject, newObject);
+            return newObject.ItemObject;
         }
     }
 }
