@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace ManagerPooling
 {
-    public class ItemPool<T> : MonoBehaviour
+    public class ItemPool<T>
     {
-        public T itemObject;
-        public bool free;
+        public T ItemObject;
+        public bool Free = true;
     }
 }

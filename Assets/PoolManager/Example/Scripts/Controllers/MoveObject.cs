@@ -2,14 +2,17 @@
 using System.Collections;
 using ManagerPooling;
 
-public class MoveSphere : MonoBehaviour
+public class MoveObject : MonoBehaviour
 {
-    private Rigidbody rg;
-    public float Speed;
-    public float TimeToDisable;
+    
+    [SerializeField]
+    private DataForPool data = default;
+    
+    private Rigidbody body;
+
     private void Start()
     {
-        rg = GetComponent<Rigidbody>();
+        body = GetComponent<Rigidbody>();
     }
 
     private void OnEnable()
@@ -23,12 +26,12 @@ public class MoveSphere : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rg.AddForce(Vector3.right * Speed);
+        body.AddForce(Vector3.right * data.Speed);
     }
 
     IEnumerator Delay()
     {
-        yield return new WaitForSecondsRealtime(TimeToDisable);
-        PoolManager.BackToPool(gameObject);
+        yield return new WaitForSecondsRealtime(data.TimerToDisable);
+        PoolManager.BackToPool(gameObject, data.IdGroup);
     }
 }
