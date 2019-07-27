@@ -1,20 +1,36 @@
-﻿namespace PoolManager
+﻿using UnityEngine;
+using System.Collections.Generic;
+public class PoolManager : MonoBehaviour
 {
-    using UnityEngine;
-    public class PoolManager : MonoBehaviour
+    private PoolManager instance;
+
+    public enum SceneType
     {
-        public enum SceneType
+        OnceLoad, DontDestroy
+    }
+
+    public SceneType TypeLoad;
+    
+    private void Awake()
+    {
+        SetTypeManager();
+    }
+
+    private void SetTypeManager()
+    {
+        switch (TypeLoad)
         {
-            OnceLoad, DontDestroy
-        }
-
-        public SceneType TypeLoad;
-
-        private void Awake()
-        {
-
+            case SceneType.OnceLoad: { break; }
+            case SceneType.DontDestroy:
+                {
+                    if (!instance)
+                        DontDestroyOnLoad(this);
+                    else Destroy(this);
+                    break;
+                }
         }
     }
 }
+
 
 
