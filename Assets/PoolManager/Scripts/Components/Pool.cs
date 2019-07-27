@@ -4,15 +4,15 @@ using System;
 
 namespace ManagerPooling
 {
-    public class Pool<T> : MonoBehaviour
+    public class Pool<T>
     {
         public Dictionary<T, ItemPool<T>> ObjectsInPool = new Dictionary<T, ItemPool<T>>();
 
-        private Func<T> func;
+        private Func<T> fucntionInstanced;
 
         public Pool(Func<T> inputObject, int size)
         {
-            func = inputObject;
+            fucntionInstanced = inputObject;
             ObjectsInPool = new Dictionary<T, ItemPool<T>>();
             for (int i = 0; i < size; i++)
             {
@@ -44,7 +44,7 @@ namespace ManagerPooling
         private T CreateNewObject()
         {
             var newObject = new ItemPool<T>();
-            newObject.itemObject = func();
+            newObject.itemObject = fucntionInstanced();
             ObjectsInPool.Add(newObject.itemObject, newObject);
             return newObject.itemObject;
         }
