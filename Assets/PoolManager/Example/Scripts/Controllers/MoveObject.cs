@@ -7,7 +7,7 @@ public class MoveObject : MonoBehaviour
     
     [SerializeField]
     private DataForPool data = default;
-    
+
     private Rigidbody body;
 
     private void Start()
@@ -29,7 +29,7 @@ public class MoveObject : MonoBehaviour
         body.AddForce(Vector3.right * data.Speed);
     }
 
-    IEnumerator Delay()
+    private IEnumerator Delay()
     {
         yield return new WaitForSecondsRealtime(data.TimerToDisable);
         PoolManager.BackToPool(gameObject, data.IdGroup);

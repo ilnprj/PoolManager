@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace ManagerPooling
 {
     public class ItemPool<T>
