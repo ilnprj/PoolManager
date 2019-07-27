@@ -1,6 +1,10 @@
-using System.Collections.Generic;
-public class ItemPool<T> 
+using UnityEngine;
+
+namespace ManagerPooling
 {
-    public T itemObject;
-    public bool Used;
+    public class ItemPool<T> : MonoBehaviour
+    {
+        public T itemObject;
+        public bool free;
+    }
 }
