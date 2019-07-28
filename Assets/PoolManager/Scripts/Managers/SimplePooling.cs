@@ -1,28 +1,51 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class SimplePooling : MonoBehaviour
+namespace ManagerPooling
 {
-    public List<GameObject> Pool = new List<GameObject>();
-
-    private void Awake()
+    public class SimplePooling : MonoBehaviour
     {
+        public List<GameObject> Pool = new List<GameObject>();
+        public GameObject Prefab;
+        private void Awake()
+        {
 
-    }
+        }
 
-    public void InstallPool(GameObject prefab, int size)
-    {
+        public void InstallPool(int size)
+        {
+            for (int i=0;i<size;i++)
+            {
+                InstantiateObject();
+            }
+        }
 
-    }
+        public GameObject Spawn()
+        {
+            foreach (var item in Pool)
+            {
+                if (!item.activeSelf)
+                {
+                    item.SetActive(true);
+                    return item;
+                }
+            }
+            var newObject = InstantiateObject();
+            newObject.SetActive(false);
+            return newObject;
+        }
 
-    public void GetFromPool()
-    {
+        public void BackToPool(GameObject obj)
+        {
+            obj.SetActive(false);
+        }
 
-    }
-
-    public void BackToPool(GameObject obj)
-    {
-
+        private GameObject InstantiateObject()
+        {
+            var newObject = Instantiate(Prefab);
+            newObject.SetActive(false);
+            Pool.Add(newObject);
+            return newObject;
+        }
     }
 }
