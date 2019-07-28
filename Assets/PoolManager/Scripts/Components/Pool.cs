@@ -19,6 +19,16 @@ namespace ManagerPooling
             }
         }
 
+        public Pool(List<T> objectsPool)
+        {
+            foreach (var item in objectsPool)
+            {
+                var newObject = new ItemPool<T>();
+                newObject.ItemObject = item;
+                ObjectsInPool.Add(newObject.ItemObject, newObject);
+            }
+        }
+
         public T GetFromPool()
         {
             foreach (var item in ObjectsInPool)
