@@ -5,16 +5,15 @@ namespace ManagerPooling
 {
     public class SimplePooling : MonoBehaviour
     {
-        public List<GameObject> Pool = new List<GameObject>();
+        [Header("Prefab:")]
         public GameObject Prefab;
-        private void Awake()
-        {
 
-        }
+        [Header("Current Pooling this component:")]
+        public List<GameObject> Pool = new List<GameObject>();
 
-        public void InstallPool(int size)
+        public void PoolInstaller(int size)
         {
-            for (int i=0;i<size;i++)
+            for (int i = 0; i < size; i++)
             {
                 InstantiateObject();
             }
@@ -43,6 +42,7 @@ namespace ManagerPooling
         private GameObject InstantiateObject()
         {
             var newObject = Instantiate(Prefab);
+            newObject.transform.SetParent(transform);
             newObject.SetActive(false);
             Pool.Add(newObject);
             return newObject;
