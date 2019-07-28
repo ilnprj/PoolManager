@@ -5,8 +5,8 @@ namespace ManagerPooling
 {
     public class SimplePooling : MonoBehaviour
     {
-        [Header("Prefab:")]
-        public GameObject Prefab;
+        [SerializeField]
+        private GameObject prefab = default;
 
         [Header("Current Pooling this component:")]
         public List<GameObject> Pool = new List<GameObject>();
@@ -36,12 +36,19 @@ namespace ManagerPooling
 
         public void BackToPool(GameObject obj)
         {
-            obj.SetActive(false);
+            if (Pool.Contains(obj))
+            {
+                obj.SetActive(false);
+            }
+            else
+            {
+                Debug.LogWarning("Element - "+obj.name+" not contains in pool!");
+            }
         }
 
         private GameObject InstantiateObject()
         {
-            var newObject = Instantiate(Prefab);
+            var newObject = Instantiate(prefab);
             newObject.transform.SetParent(transform);
             newObject.SetActive(false);
             Pool.Add(newObject);

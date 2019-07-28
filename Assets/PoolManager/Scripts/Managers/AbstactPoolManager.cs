@@ -7,7 +7,7 @@ namespace ManagerPooling
     {
         public static Dictionary<string, Pool<T>> AllPools = new Dictionary<string, Pool<T>>();
 
-        public static void CreateNewPool(string idGroup, List<T> objectsForPool)
+        public static void PoolInstaller(string idGroup, List<T> objectsForPool)
         {
             var newPool = new Pool<T>(objectsForPool);
             AllPools.Add(idGroup, newPool);
