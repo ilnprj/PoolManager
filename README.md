@@ -35,7 +35,7 @@
 ### Using pooling with abstract objects and components:
 
 ## UnityPackage
-- [Version-1.0.0](https://gitlab.com/ilnprj/poolmanager/blob/release/PoolManager_v1.0.0.unitypackage)
+- [Version-1.0.0](https://github.com/ilnprj/PoolManager/blob/release/PoolManager_v1.0.0.unitypackage)
 
 ## Notes:
 - So far, the pool elements do not support the delete from outside. This feature can be added later.
